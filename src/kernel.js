@@ -17,6 +17,8 @@
     } 
     return newm;
   } 
+
+  core.ImageSize = () => 'ImageSize'
  
   core.ListPlotly = async function(args, env) {
       if (!Plotly) Plotly = await import('plotly.js-dist-min');
@@ -135,10 +137,10 @@
 
       let arr = await interpretate(args[0], {...env, numerical: true});
       console.log('listlineplot: got the data...');
-      console.log(arr);
+      //console.log(arr);
       let newarr = [];
 
-      
+      console.log(options);
       /**
        * @type {[Number, Number]}
        */
