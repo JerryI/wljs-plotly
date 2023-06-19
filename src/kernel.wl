@@ -3,7 +3,7 @@ Plotly[f_, range_, op : OptionsPattern[Plot]] := Plot[f, range, op] // Cases[#, 
 Options[RequestAnimationFrame] = {"event"->Null, "reply"->Null};
 SetAttributes[RequestAnimationFrame, HoldRest]
 
-RequestAnimationFrame[ListPlotly[data_], opts : OptionsPattern[]] ^:= Module[{evid = RandomString[20]},
+ListPlotly /: RequestAnimationFrame[ListPlotly[data_], opts : OptionsPattern[]] := Module[{evid = RandomString[20]},
     If[(OptionValue["event"]//NullQ) || (OptionValue["reply"]//NullQ), Return[HTMLForm["<span style=\"color:ref\">Error!</span> Specify event and reply symbols!"], Module ] ];
     
     With[{id = evid},

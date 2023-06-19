@@ -130,13 +130,15 @@
     core.ListLinePlotly = async function(args, env) {
       if (!Plotly) Plotly = await import('plotly.js-dist-min');
       console.log('listlineplot: getting the data...');
-      env.numerical = true;
-      let arr = await interpretate(args[0], env);
+      let options = await core._getRules(args, env);
+
+
+      let arr = await interpretate(args[0], {...env, numerical: true});
       console.log('listlineplot: got the data...');
       console.log(arr);
       let newarr = [];
 
-      let options = await core._getRules(args, env);
+      
       /**
        * @type {[Number, Number]}
        */
