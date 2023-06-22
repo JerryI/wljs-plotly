@@ -188,6 +188,8 @@ let Plotly = false;
           t: 30,
           pad: 4
         }});  
+
+        env.local.element = env.element;
     };   
 
     core.ListLinePlotly.update = async (args, env) => {
@@ -231,7 +233,7 @@ let Plotly = false;
       console.log("env");
       console.log(env);
 
-      Plotly.animate(env.element, {
+      Plotly.animate(env.local.element, {
         data: newarr,
       }, {
         transition: {
