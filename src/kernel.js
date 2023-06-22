@@ -1,5 +1,13 @@
   let Plotly = false;
 
+  Array.prototype.max = function() {
+    return Math.max.apply(null, this);
+  };
+  
+  Array.prototype.min = function() {
+    return Math.min.apply(null, this);
+  };
+
   function arrDepth(arr) {
     if (arr[0].length === undefined)        return 1;
     if (arr[0][0].length === undefined)     return 2;
@@ -202,9 +210,14 @@
 
       let newarr = [];
 
+      let minmax = {x:[0], y:[0]};
+
       switch(arrDepth(arr)) {
         case 1:
           newarr.push({y: arr});
+          minmax.x = [0, arr.length];
+          minmax.y = [arr.min(), arr.max()];
+
         break;
         case 2:
           if (arr[0].length === 2) {
@@ -233,8 +246,15 @@
       console.log("env");
       console.log(env);
 
+
+
+
       Plotly.animate(env.local.element, {
         data: newarr,
+        layout: {
+          xaxis: {range: minmax.x},
+          yaxis: {range: minmax.y}
+        }
       }, {
         transition: {
           duration: 300,
