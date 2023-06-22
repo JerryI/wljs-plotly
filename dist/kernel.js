@@ -225,6 +225,10 @@ let Plotly = false;
             let t = transpose(arr);
       
             newarr.push({x: t[0], y: t[1]});
+
+            minmax.x = [t[0].min(), t[0].max()];
+            minmax.y = [t[1].min(), t[1].max()];
+
           } else {
             console.log('multiple Y plot');
             arr.forEach(element => {
