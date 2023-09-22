@@ -29,7 +29,7 @@ let Plotly = false;
   core.ImageSize = () => 'ImageSize';
  
   core.ListPlotly = async function(args, env) {
-      if (!Plotly) Plotly = await import('./plotly.min-c06acbcc.js').then(function (n) { return n.p; });
+      if (!Plotly) Plotly = await import('./plotly.min-6bd91ad7.js').then(function (n) { return n.p; });
  
       env.numerical = true;
       let arr = await interpretate(args[0], env);
@@ -138,7 +138,7 @@ let Plotly = false;
     core.ListPlotly.destroy = ()=>{};
     
     core.ListLinePlotly = async function(args, env) {
-      if (!Plotly) Plotly = await import('./plotly.min-c06acbcc.js').then(function (n) { return n.p; });
+      if (!Plotly) Plotly = await import('./plotly.min-6bd91ad7.js').then(function (n) { return n.p; });
       console.log('listlineplot: getting the data...');
       let options = await core._getRules(args, env);
 
@@ -210,13 +210,11 @@ let Plotly = false;
 
       let newarr = [];
 
-      let minmax = {x:[0], y:[0]};
-
       switch(arrDepth(arr)) {
         case 1:
           newarr.push({y: arr});
-          minmax.x = [0, arr.length];
-          minmax.y = [arr.min(), arr.max()];
+          [0, arr.length];
+          [arr.min(), arr.max()];
 
         break;
         case 2:
@@ -226,8 +224,8 @@ let Plotly = false;
       
             newarr.push({x: t[0], y: t[1]});
 
-            minmax.x = [t[0].min(), t[0].max()];
-            minmax.y = [t[1].min(), t[1].max()];
+            [t[0].min(), t[0].max()];
+            [t[1].min(), t[1].max()];
 
           } else {
             console.log('multiple Y plot');
@@ -255,17 +253,13 @@ let Plotly = false;
 
       Plotly.animate(env.local.element, {
         data: newarr,
-        layout: {
-          xaxis: {range: minmax.x},
-          yaxis: {range: minmax.y}
-        }
       }, {
         transition: {
-          duration: 300,
+          duration: 100,
           easing: 'cubic-in-out'
         },
         frame: {
-          duration: 300
+          duration: 100
         }
       });     
     };

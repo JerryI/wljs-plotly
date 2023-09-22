@@ -255,17 +255,13 @@
 
       Plotly.animate(env.local.element, {
         data: newarr,
-        layout: {
-          xaxis: {range: minmax.x},
-          yaxis: {range: minmax.y}
-        }
       }, {
         transition: {
-          duration: 300,
+          duration: 100,
           easing: 'cubic-in-out'
         },
         frame: {
-          duration: 300
+          duration: 100
         }
       });     
     }
