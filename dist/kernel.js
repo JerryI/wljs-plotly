@@ -1,6 +1,4 @@
-let Plotly = false;
-
-  Array.prototype.max = function() {
+Array.prototype.max = function() {
     return Math.max.apply(null, this);
   };
   
@@ -25,14 +23,21 @@ let Plotly = false;
     } 
     return newm;
   } 
+  let plotly = {};
+  plotly.name = "WebObjects/Plotly";
 
-  core.ImageSize = () => 'ImageSize';
+
+  interpretate.contextExpand(plotly);
+
+  
+
+  plotly.ImageSize = () => 'ImageSize';
  
-  core.ListPlotly = async function(args, env) {
-      if (!Plotly) Plotly = await import('./plotly.min-6bd91ad7.js').then(function (n) { return n.p; });
+  plotly.ListPlotly = async function(args, env) {
+      if (!Plotly) plotly._Plotly = await import('./plotly.min-8ed0ad53.js').then(function (n) { return n.p; });
  
       env.numerical = true;
-      let arr = await interpretate(args[0], env);
+      let arr = await interpretate(args[0], {...env, context: plotly});
       let newarr = [];
 
       let options = {};
@@ -66,7 +71,7 @@ let Plotly = false;
         break;      
       }
 
-      Plotly.newPlot(env.element, newarr, {autosize: false, width: core.DefaultWidth, height: core.DefaultWidth*0.618034, margin: {
+      plotly._Plotly.newPlot(env.element, newarr, {autosize: false, width: core.DefaultWidth, height: core.DefaultWidth*0.618034, margin: {
           l: 30,
           r: 30,
           b: 30,
@@ -116,7 +121,7 @@ let Plotly = false;
               break;      
             }
 
-            Plotly.animate(env.element, {
+            plotly._Plotly.animate(env.element, {
               data: newarr2
             }, {
               transition: {
@@ -135,15 +140,15 @@ let Plotly = false;
           request();
     };
 
-    core.ListPlotly.destroy = ()=>{};
+    plotly.ListPlotly.destroy = ()=>{};
     
-    core.ListLinePlotly = async function(args, env) {
-      if (!Plotly) Plotly = await import('./plotly.min-6bd91ad7.js').then(function (n) { return n.p; });
+    plotly.ListLinePlotly = async function(args, env) {
+      if (!plotly._Plotly) plotly._Plotly = await import('./plotly.min-8ed0ad53.js').then(function (n) { return n.p; });
       console.log('listlineplot: getting the data...');
       let options = await core._getRules(args, env);
 
 
-      let arr = await interpretate(args[0], {...env, numerical: true});
+      let arr = await interpretate(args[0], {...env, numerical: true, context: plotly});
       console.log('listlineplot: got the data...');
       //console.log(arr);
       let newarr = [];
@@ -189,7 +194,7 @@ let Plotly = false;
         break;      
       }
 
-      Plotly.newPlot(env.element, newarr, {autosize: false, width: ImageSize[0], height: ImageSize[1], margin: {
+      plotly._Plotly.newPlot(env.element, newarr, {autosize: false, width: ImageSize[0], height: ImageSize[1], margin: {
           l: 30,
           r: 30,
           b: 30,
@@ -200,7 +205,7 @@ let Plotly = false;
         env.local.element = env.element;
     };   
 
-    core.ListLinePlotly.update = async (args, env) => {
+    plotly.ListLinePlotly.update = async (args, env) => {
       env.numerical = true;
       console.log('listlineplot: update: ');
       console.log(args);
@@ -251,7 +256,7 @@ let Plotly = false;
 
 
 
-      Plotly.animate(env.local.element, {
+      plotly._Plotly.animate(env.local.element, {
         data: newarr,
       }, {
         transition: {
@@ -264,4 +269,4 @@ let Plotly = false;
       });     
     };
     
-    core.ListLinePlotly.destroy = ()=>{};
+    plotly.ListLinePlotly.destroy = ()=>{};
