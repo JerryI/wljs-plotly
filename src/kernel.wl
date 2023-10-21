@@ -17,6 +17,5 @@ ListPlotly /: RequestAnimationFrame[ListPlotly[data_], opts : OptionsPattern[]] 
     ListPlotly[data, "RequestAnimationFrame"->{evid, "sym"<>evid}] 
 ]
 
-RegisterWebObject[ListLinePlotly];
-
-RegisterWebObject[ListPlotly];
+ListLinePlotly /: MakeBoxes[ListLinePlotly[args__], StandardForm] := With[{o = CreateFrontEndObject[ListLinePlotly[args]]}, MakeBoxes[o, StandardForm]]
+ListPlotly /: MakeBoxes[ListPlotly[args__], StandardForm] := With[{o = CreateFrontEndObject[ListPlotly[args]]}, MakeBoxes[o, StandardForm]]

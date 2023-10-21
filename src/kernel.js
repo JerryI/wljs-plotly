@@ -34,7 +34,7 @@
   plotly.ImageSize = () => 'ImageSize'
  
   plotly.ListPlotly = async function(args, env) {
-      if (!Plotly) plotly._Plotly = await import('plotly.js-dist-min');
+      if (!plotly._Plotly) plotly._Plotly = await import('plotly.js-dist-min');
  
       env.numerical = true;
       let arr = await interpretate(args[0], {...env, context: plotly});

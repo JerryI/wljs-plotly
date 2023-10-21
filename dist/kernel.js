@@ -34,7 +34,7 @@ Array.prototype.max = function() {
   plotly.ImageSize = () => 'ImageSize';
  
   plotly.ListPlotly = async function(args, env) {
-      if (!Plotly) plotly._Plotly = await import('./plotly.min-8ed0ad53.js').then(function (n) { return n.p; });
+      if (!plotly._Plotly) plotly._Plotly = await import('./plotly.min-6ef0ff59.js').then(function (n) { return n.p; });
  
       env.numerical = true;
       let arr = await interpretate(args[0], {...env, context: plotly});
@@ -143,7 +143,7 @@ Array.prototype.max = function() {
     plotly.ListPlotly.destroy = ()=>{};
     
     plotly.ListLinePlotly = async function(args, env) {
-      if (!plotly._Plotly) plotly._Plotly = await import('./plotly.min-8ed0ad53.js').then(function (n) { return n.p; });
+      if (!plotly._Plotly) plotly._Plotly = await import('./plotly.min-6ef0ff59.js').then(function (n) { return n.p; });
       console.log('listlineplot: getting the data...');
       let options = await core._getRules(args, env);
 
