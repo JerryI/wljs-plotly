@@ -9,9 +9,8 @@
   },
   "defaultPackage": true,
   "wljs-meta": {
-    "jsmodule": "dist/kernel.js",
-    "wlkernel": "src/kernel.wl",
-    "autocomplete": "src/autocomplete.js"
+    "js": "dist/kernel.js",
+    "kernel": "src/Kernel.wl"
   },
   "repository": {
     "type": "git",
