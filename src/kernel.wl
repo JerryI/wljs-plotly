@@ -1,6 +1,7 @@
 BeginPackage["Notebook`Kernel`PlotlyExtension`", {
 	"JerryI`Misc`Events`",
-	"Notebook`Editor`Kernel`FrontSubmitService`"
+	"Notebook`Editor`Kernel`FrontSubmitService`",
+    "Notebook`Editor`FrontendObject`"
 }]
 
 Plotly::usage = "Plotly[expr_, {var_, min_, max_}] plots an expr using Plotly.js library"
@@ -28,8 +29,8 @@ ListPlotly /: RequestAnimationFrame[ListPlotly[data_], opts : OptionsPattern[]] 
     ListPlotly[data, "RequestAnimationFrame"->{evid, "sym"<>evid}] 
 ]
 
-ListLinePlotly /: MakeBoxes[ListLinePlotly[args__], StandardForm] := With[{o = Global`CreateFrontEndObject[ListLinePlotly[args]]}, MakeBoxes[o, StandardForm]]
-ListPlotly /: MakeBoxes[ListPlotly[args__], StandardForm] := With[{o = Global`CreateFrontEndObject[ListPlotly[args]]}, MakeBoxes[o, StandardForm]]
+ListLinePlotly /: MakeBoxes[ListLinePlotly[args__], StandardForm] := With[{o = CreateFrontEndObject[ListLinePlotly[args]]}, MakeBoxes[o, StandardForm]]
+ListPlotly /: MakeBoxes[ListPlotly[args__], StandardForm] := With[{o = CreateFrontEndObject[ListPlotly[args]]}, MakeBoxes[o, StandardForm]]
 
 End[]
 EndPackage[]
