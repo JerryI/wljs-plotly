@@ -5,10 +5,10 @@ BeginPackage["Notebook`Kernel`PlotlyExtension`", {
     "Notebook`Editor`Kernel`FrontSubmitService`MetaMarkers`"
 }]
 
-Plotly::usage = "Plotly[expr_, {var_, min_, max_}] or Plotly[{a__Association}, opts] plots an expr using Plotly.js library"
+Plotly::usage = "Plotly[expr_, {var_, min_, max_}] or Plotly[{a__Association}, opts] _PlotlyInstance plots an expr using Plotly.js library"
 PlotlyInstance::usage = "Internal representation of Plotly instance"
 
-Plotly`addTraces::usage = ""
+Plotly`addTraces::usage = "Plotly`addTraces[p_PlotlyInstance, traces_List] appends new traces"
 Plotly`deleteTraces::usage = ""
 Plotly`extendTraces::usage = ""
 Plotly`prependTraces::usage = ""

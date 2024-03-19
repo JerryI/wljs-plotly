@@ -55,7 +55,7 @@ Array.prototype.max = function() {
 
   plotly["Plotly`removeTraces"] = async (args, env) => {
     const traces = await interpretate(args[0], env);
-    Plotly.removeTraces(env.local.instance, traces);
+    Plotly.deleteTraces(env.local.instance, traces);
   };
 
   plotly["Plotly`extendTraces"] = async (args, env) => {
