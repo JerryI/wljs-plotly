@@ -29,12 +29,58 @@ Array.prototype.max = function() {
 
   interpretate.contextExpand(plotly);
 
+  let Plotly = false;
+
+  plotly["Plotly`newPlot"] = async (args, env) => {
+    if (!Plotly) Plotly = await import('./plotly.min-5d44e907.js').then(function (n) { return n.p; });
+
+    const data = await interpretate(args[0], env);
+    const layout = await interpretate(args[1], env);
+
+    Plotly.newPlot(env.element, data, layout);
+    env.local.instance = env.element;
+  };
+
+  plotly["Plotly`newPlot"].destroy = (args, env) => {
+    Plotly.purge(env.local.instance);
+    console.warn('Plotly destroyed!');
+  };
+
+
+
+  plotly["Plotly`addTraces"] = async (args, env) => {
+    const traces = await interpretate(args[0], env);
+    Plotly.addTraces(env.local.instance, traces);
+  };
+
+  plotly["Plotly`removeTraces"] = async (args, env) => {
+    const traces = await interpretate(args[0], env);
+    Plotly.removeTraces(env.local.instance, traces);
+  };
+
+  plotly["Plotly`extendTraces"] = async (args, env) => {
+    const traces = await interpretate(args[0], env);
+    const arr = await interpretate(args[1], env);
+    Plotly.extendTraces(env.local.instance, traces, arr);
+  };
+
+  plotly["Plotly`animate"] = async (args, env) => {
+    const traces = await interpretate(args[0], env);
+    const arr = await interpretate(args[1], env);
+    Plotly.animate(env.local.instance, traces, arr);
+  };  
+
+  plotly["Plotly`prependTraces"] = async (args, env) => {
+    const traces = await interpretate(args[0], env);
+    const arr = await interpretate(args[1], env);
+    Plotly.prependTraces(env.local.instance, traces, arr);
+  };
   
 
   plotly.ImageSize = () => 'ImageSize';
  
   plotly.ListPlotly = async function(args, env) {
-      if (!plotly._Plotly) plotly._Plotly = await import('./plotly.min-5d44e907.js').then(function (n) { return n.p; });
+      if (!Plotly) Plotly = await import('./plotly.min-5d44e907.js').then(function (n) { return n.p; });
  
       env.numerical = true;
       let arr = await interpretate(args[0], {...env, context: plotly});
@@ -71,7 +117,7 @@ Array.prototype.max = function() {
         break;      
       }
 
-      plotly._Plotly.newPlot(env.element, newarr, {autosize: false, width: core.DefaultWidth, height: core.DefaultWidth*0.618034, margin: {
+      Plotly.newPlot(env.element, newarr, {autosize: false, width: core.DefaultWidth, height: core.DefaultWidth*0.618034, margin: {
           l: 30,
           r: 30,
           b: 30,
@@ -121,7 +167,7 @@ Array.prototype.max = function() {
               break;      
             }
 
-            plotly._Plotly.animate(env.element, {
+            Plotly.animate(env.element, {
               data: newarr2
             }, {
               transition: {
@@ -143,7 +189,7 @@ Array.prototype.max = function() {
     plotly.ListPlotly.destroy = ()=>{};
     
     plotly.ListLinePlotly = async function(args, env) {
-      if (!plotly._Plotly) plotly._Plotly = await import('./plotly.min-5d44e907.js').then(function (n) { return n.p; });
+      if (!Plotly) Plotly = await import('./plotly.min-5d44e907.js').then(function (n) { return n.p; });
       console.log('listlineplot: getting the data...');
       let options = await core._getRules(args, env);
 
@@ -194,7 +240,7 @@ Array.prototype.max = function() {
         break;      
       }
 
-      plotly._Plotly.newPlot(env.element, newarr, {autosize: false, width: ImageSize[0], height: ImageSize[1], margin: {
+      Plotly.newPlot(env.element, newarr, {autosize: false, width: ImageSize[0], height: ImageSize[1], margin: {
           l: 30,
           r: 30,
           b: 30,
@@ -256,7 +302,7 @@ Array.prototype.max = function() {
 
 
 
-      plotly._Plotly.animate(env.local.element, {
+      Plotly.animate(env.local.element, {
         data: newarr,
       }, {
         transition: {
