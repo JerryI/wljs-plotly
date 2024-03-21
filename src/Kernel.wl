@@ -25,12 +25,6 @@ ListLinePlotly::usage = "ListLinePlotly plots a list of expressions using Plotly
 
 Begin["`Private`"]
 
-PlotlyAddTraces = Plotly`addTraces
-PlotlyDeleteTraces = Plotly`deleteTraces
-PlotlyExtendTraces = Plotly`extendTraces
-PlotlyPrependTraces = Plotly`prependTraces
-PlotlyAnimate = Plotly`animate
-
 Plotly[f_, range_List, op : OptionsPattern[Plot] ] := Plot[f, range, op] // Cases[#, Line[x_] :> x, All] & // ListLinePlotly[#, op] & ;
 
 Plotly[a_Association] := Plotly @@ Join[{{a}}, Options[Plotly] ]
@@ -62,6 +56,12 @@ PlotlyInstance /: Plotly`animate[ PlotlyInstance[uid_, _, win_], traces_, arr_ ]
 
 ListLinePlotly /: MakeBoxes[ListLinePlotly[args__], StandardForm] := With[{o = CreateFrontEndObject[ListLinePlotly[args]]}, MakeBoxes[o, StandardForm]]
 ListPlotly /: MakeBoxes[ListPlotly[args__], StandardForm] := With[{o = CreateFrontEndObject[ListPlotly[args]]}, MakeBoxes[o, StandardForm]]
+
+PlotlyAddTraces = Plotly`addTraces
+PlotlyDeleteTraces = Plotly`deleteTraces
+PlotlyExtendTraces = Plotly`extendTraces
+PlotlyPrependTraces = Plotly`prependTraces
+PlotlyAnimate = Plotly`animate
 
 End[]
 EndPackage[]
