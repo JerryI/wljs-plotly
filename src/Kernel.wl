@@ -14,10 +14,22 @@ Plotly`extendTraces::usage = ""
 Plotly`prependTraces::usage = ""
 Plotly`animate::usage = ""
 
+PlotlyAddTraces::usage = "Plotly`addTraces[p_PlotlyInstance, traces_List] appends new traces"
+PlotlyDeleteTraces::usage = ""
+PlotlyExtendTraces::usage = ""
+PlotlyPrependTraces::usage = ""
+PlotlyAnimate::usage = ""
+
 ListPlotly::usage = "ListPlotly plots a list of expressions using Plotly.js library"
 ListLinePlotly::usage = "ListLinePlotly plots a list of expressions using Plotly.js library. Supports dynamic updates"
 
 Begin["`Private`"]
+
+PlotlyAddTraces = Plotly`addTraces
+PlotlyDeleteTraces = Plotly`deleteTraces
+PlotlyExtendTraces = Plotly`extendTraces
+PlotlyPrependTraces = Plotly`prependTraces
+PlotlyAnimate = Plotly`animate
 
 Plotly[f_, range_List, op : OptionsPattern[Plot] ] := Plot[f, range, op] // Cases[#, Line[x_] :> x, All] & // ListLinePlotly[#, op] & ;
 
