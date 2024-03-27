@@ -63,5 +63,13 @@ PlotlyExtendTraces = Plotly`extendTraces
 PlotlyPrependTraces = Plotly`prependTraces
 PlotlyAnimate = Plotly`animate
 
+
+ListLinePlotly /: MakeBoxes[ListLinePlotly[args__], WLXForm] := With[{o = CreateFrontEndObject[ListLinePlotly[args]]}, MakeBoxes[o, WLXForm]]
+ListPlotly /: MakeBoxes[ListPlotly[args__], WLXForm] := With[{o = CreateFrontEndObject[ListPlotly[args]]}, MakeBoxes[o, WLXForm]]
+
+PlotlyInstance /: MakeBoxes[PlotlyInstance[uid_String, data_, _] , WLXForm] := With[{o = CreateFrontEndObject[{Plotly`newPlot[data["Data"], data["Layout"] ], MetaMarker[uid]}]},
+    MakeBoxes[o, WLXForm]
+]
+
 End[]
 EndPackage[]
